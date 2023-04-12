@@ -1,0 +1,14 @@
+﻿@{ 
+    int cantidadLibros = Web.ViewModel.Carrito.Instancia.GetCountItems();
+}
+
+<a href="@Url.Action("Index", "Orden")" class="nav-link">
+    <i class="fa-solid fa-cart-shopping"></i> 
+    <span class="badge text-bg-info">@cantidadLibros</span>
+</a>
+
+@if(@ViewBag.NotiCarrito!=null){
+    <script>
+        @Html.Raw(@ViewBag.NotiCarrito);
+    </script>
+}

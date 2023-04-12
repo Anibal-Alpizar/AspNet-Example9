@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Infraestructure.Models.Autor>
+
+@{
+    ViewBag.Title = "Autores";
+}
+
+<h2>Autores</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Autor")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Autor", new { id = item.IdAutor })" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i class="fa-solid fa-pencil"></i></a>
+           |
+            <a href="@Url.Action("Details", "Autor")" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i></a> |
+        </td>
+    </tr>
+}
+
+</table>

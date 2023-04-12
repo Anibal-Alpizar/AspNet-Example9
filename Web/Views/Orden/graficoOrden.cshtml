@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "graficoOrden";
+}
+
+<h2>Gráfico</h2>
+<div>
+    <canvas id="grafico"></canvas>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+    <!--Librería para gráficos-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+    <script src="~/Scripts/graficoChartJS.js"></script>
+    <script type="text/javascript">
+
+      
+    </script>
+
+}

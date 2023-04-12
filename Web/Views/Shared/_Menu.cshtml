@@ -1,0 +1,100 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        @Html.ActionLink("Librería", "Index", "Home", null, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    @Html.ActionLink("Libros", "Index", "Libro", null, new { @class = "nav-link" })
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mantenimientos</a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.ActionLink("Autor", "Index", "Autor", null, new { @class = "dropdown-item" })
+                            @if (Web.Security.AutorizeView.IsUserInRole(new string[] { "Administrador", "Procesos" }))
+                            {
+                                @Html.ActionLink("Libro", "IndexAdmin", "Libro", null, new { @class = "dropdown-item" })
+                            }
+                            @Html.ActionLink("Orden", "IndexAdmin", "Orden", null, new { @class = "dropdown-item" })
+                        </li>
+                        <li >
+                          
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.ActionLink("Catálogo Libros", "LibroCatalogo", "Reporte", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Gráfico Cantidad Ordenes", "graficoOrden", "Orden", null, new { @class = "dropdown-item" })
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Acerca de", "About", "Home", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })
+                </li>
+                @* Detalle y link Orden *@
+            <li class="nav-item" id="cantidadLibros">
+                @Html.Partial("_OrdenCantidad")
+            </li>
+                @* Información usuario *@
+                @{
+                    string nombre = "";
+                    string email = "Perfil";
+                    Infraestructure.Models.Usuario oUsuario;
+                    //Validar si existe en la sesión
+                    if (Session["User"] != null)
+                    {
+                        oUsuario = (Infraestructure.Models.Usuario)Session["User"];
+                        if (oUsuario != null)
+                        {
+                            nombre = $"{oUsuario.Nombre} {oUsuario.Apellidos}";
+                            email = oUsuario.Email;
+                        }
+                    }
+                }
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Perfil</a>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        @if (Session["User"] != null)
+                        {
+                            <div class="dropdown-item">
+                                @* Nombre Usuario *@
+                                Usuario: @nombre
+                            </div>
+                        }
+
+                        <div class="dropdown-divider"></div>
+                        @if (Session["User"] == null)
+                        {
+                            @Html.ActionLink("Login", "Index", "Login", null, new { @class = "dropdown-item" })
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "dropdown-item " })
+                        }
+                    </li>
+                </ul>
+            </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+

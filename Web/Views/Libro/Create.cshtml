@@ -1,0 +1,89 @@
+﻿@model Infraestructure.Models.Libro
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+@*@using (Html.BeginForm("Save", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {*@
+@using (Html.BeginForm("Save", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Libro</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Isbn, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Isbn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Isbn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdAutor, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("IdAutor", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.IdAutor,
+               (SelectList)ViewBag.idAutor,
+               "Selecione un autor",
+               htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdAutor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                @Html.DropDownList("selectedCategorias", (MultiSelectList)ViewBag.idCategoria,
+               htmlAttributes: new { @class = "form-select", multiple = "multiple" })
+
+            </div>
+        </div> 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Imagen, htmlAttributes: new { @class = "form-label mt-4" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFile" class = "form-control" required />
+            </div>
+        </div>
+        <hr />
+        <div class="form-group btn-group">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+                @Html.ActionLink("Regresar al listado", "IndexAdmin", null, new { @class = "btn btn-secondary" })
+            
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

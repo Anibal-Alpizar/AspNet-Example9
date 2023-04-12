@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Librería</title>
+
+    @Styles.Render("~/Content/css")
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    @Html.Partial("_Menu")
+
+    <div class="container body-content">
+        @RenderBody()
+        @RenderSection("footer", false)
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+
+    @Scripts.Render("~/bundles/sweetalert")
+
+    @RenderSection("scripts", required: false)
+    @if (ViewBag.NotificationMessage != null)
+    {
+        <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+        </script>
+    }
+</body>
+</html>
+
+
+

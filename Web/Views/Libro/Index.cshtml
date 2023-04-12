@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Infraestructure.Models.Libro>
+
+@{
+    ViewBag.Title = "Listado de Libros";
+}
+
+<h2>Listado de Libros</h2>
+<div class="row">
+    <div class="col-lg-3">
+        <h1 class="my-4">Autor</h1>
+        <div class="list-group">
+            @foreach (var autor in (List<Infraestructure.Models.Autor>)ViewBag.listaAutores)
+            {
+                @Ajax.ActionLink(autor.Nombre,//Texto para el usuario
+                "librosxAutor",//Acción a llamar
+                new
+                {
+                    id=autor.IdAutor
+                },//Parámetros para la acción
+                new AjaxOptions
+                {
+                    UpdateTargetId="resultado",
+                    InsertionMode=InsertionMode.Replace,
+                    HttpMethod="GET",
+                }, new {@class="list-group-item"}
+               )
+            }
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div id="resultado" class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-3">
+                    <div class="card">
+                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Imagen)"
+                             alt="Imagen @Html.DisplayFor(modelItem => item.Nombre)" class="img-thumbnail" />
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"> @Html.DisplayNameFor(model => model.Autor): @Html.DisplayFor(modelItem => item.Autor.Nombre)</h6>
+                            <p class="card-text">   @Html.DisplayNameFor(model => model.Precio):  @Html.DisplayFor(modelItem => item.Precio)</p>
+                            <div class="card-body">
+                                @* Accion Orden *@
+                                @Ajax.ActionLink("Ordenar",
+                                  "ordenarLibro",
+                                  "Orden",
+                                  new
+                                  {
+                                      idLibro=item.IdLibro
+                                  },
+                                  new AjaxOptions
+                                  {
+                                      UpdateTargetId="cantidadLibros",
+                                      InsertionMode=InsertionMode.Replace,
+                                      HttpMethod="GET",
+                                  },new {@class="btn btn-primary"}
+                                  )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
+    }
+

@@ -1,0 +1,58 @@
+﻿
+@model IEnumerable<Infraestructure.Models.Libro>
+
+@{
+    ViewBag.Title = "Catalogo";
+}
+
+<h2>LibroCatalogo</h2>
+
+<p>
+    @Html.ActionLink("Reporte PDF", "CreatePdfLibroCatalogo", "Reporte")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Isbn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagen)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Isbn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor.Nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Imagen)" role="img"
+                     alt="Libro @Html.DisplayNameFor(model => model.Nombre)"
+                     class="bd-placeholder-img" width="70" height="70">
+
+            </td>
+        </tr>
+    }
+
+</table>
