@@ -23,7 +23,6 @@ namespace Infraestructure.Repository
                                Include("Cliente").
                                Include("Usuario").
                                ToList<Orden>();
-
                 }
                 return ordenes;
 
