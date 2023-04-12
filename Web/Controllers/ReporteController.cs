@@ -32,7 +32,6 @@ namespace Web.Controllers
             IEnumerable<Libro> lista = null;
             try
             {
-
                 IServiceLibro _ServiceLibro = new ServiceLibro();
                 lista = _ServiceLibro.GetLibro();
                 return View(lista);
