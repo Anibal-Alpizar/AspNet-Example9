@@ -84,11 +84,22 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    var resultado = ctx.Orden;
+
+                    // Obtener la cantidad de ordenas por fechas
+                    var resultado = ctx.Orden.GroupBy(x => x.FechaOrden).
+                        Select(
+                        o => new
+                        {
+                            count = o.Count(),
+                            FechaOrden = o.Key
+                        });
 
                     //Crear etiquetas y valores
-
-
+                    foreach(var item in resultado)
+                    {
+                        varEtiquetas = String.Format("{0:dd/MM/yyyy}", item.FechaOrden) + ", ";
+                        varValores += item.count + ", ";
+                    }
                 }
                 //Ultima coma
                 varEtiquetas = varEtiquetas.Substring(0, varEtiquetas.Length - 1); // ultima coma
@@ -126,7 +137,7 @@ namespace Infraestructure.Repository
                     {
                         ctx.Orden.Add(pOrden);
                         //foreach
-                        resultado = ctx.SaveChanges();                        
+                        resultado = ctx.SaveChanges();
                         // Commit 
                         transaccion.Commit();
                     }
